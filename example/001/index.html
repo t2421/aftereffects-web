@@ -1,0 +1,85 @@
+<!doctype html>
+<html class="no-js" lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+      .text{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+      }
+      .motion-target{
+          display: inline-block;
+          font-family: serif;
+          font-weight: bold;
+          font-size: 40px;
+          transform-origin: 50% 100%;
+      }
+  </style>
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <div class="text">
+      <span class="motion-target">い</span>
+      <span class="motion-target">つ</span>
+      <span class="motion-target">も</span>
+      <span class="motion-target">お</span>
+      <span class="motion-target">世</span>
+      <span class="motion-target">話</span>
+      <span class="motion-target">に</span>
+      <span class="motion-target">な</span>
+      <span class="motion-target">っ</span>
+      <span class="motion-target">て</span>
+      <span class="motion-target">お</span>
+      <span class="motion-target">り</span>
+      <span class="motion-target">ま</span>
+      <span class="motion-target">す</span>
+
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.1.1/gsap.min.js"></script>
+  <script src="./data/motion.js"></script>
+ <script>
+     
+    $('.motion-target').each(function(index,element){
+        animation(element,index*50);
+    });
+     function animation(target,delay){
+         console.log(delay)
+        var currentFrame = 0;
+        var numFrame = motion.position.length;
+        var lengthScale = 0.3;
+        setTimeout(function(){
+           
+            
+            function step() {
+                window.requestAnimationFrame(step);
+                TweenMax.to(target,0,{
+                    x:motion.position[currentFrame][0]*lengthScale,y:motion.position[currentFrame][1]*lengthScale,
+                    scaleX:motion.scale[currentFrame][0],scaleY:motion.scale[currentFrame][1]
+                })
+                currentFrame++;
+                if(currentFrame >= numFrame){
+                    currentFrame = 0;
+                }
+            }
+            step();
+        },delay);
+       
+     }
+     
+ </script>
+</body>
+
+</html>
